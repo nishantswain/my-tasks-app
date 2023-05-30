@@ -7,22 +7,19 @@ type BoardTile = {
   boardImage: String;
 };
 
-async function fetchBoardList(): Promise<[]> {
-  let response = await fetch('http:localhost:3000/api/boards');
-  const boardList = await response.json();
-  return boardList;
+interface UserBoardListProps {
+  boardList: [BoardTile] | [];
 }
 
-async function UserBoardList() {
-  const boardList = await fetchBoardList();
+const UserBoardList = ({ boardList }: UserBoardListProps): JSX.Element => {
   return (
     <div>
       <h3>User Board List</h3>
       {boardList.map((board: BoardTile) => (
-        <BoardTile key={board.id} board={board} />
+        <BoardTile key={board.id} {...board} />
       ))}
     </div>
   );
-}
+};
 
 export default UserBoardList;
